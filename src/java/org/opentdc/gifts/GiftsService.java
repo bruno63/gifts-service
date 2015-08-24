@@ -28,7 +28,9 @@ import java.util.logging.Logger;
 
 // import io.swagger.annotations.*;
 
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -95,9 +97,10 @@ public class GiftsService extends GenericService<ServiceProvider> {
 	//			{ @ApiResponse(code = 409, message = "An object with the same id exists already (CONFLICT)") },
 	//			{ @ApiResponse(code = 400, message = "Invalid ID supplied or mandatory field missing (BAD_REQUEST)" })
 	public GiftModel create(
+		@Context HttpServletRequest request,
 		GiftModel gift) 
 	throws DuplicateException, ValidationException {
-		return sp.create(gift);
+		return sp.create(request, gift);
 	}
 
 	@GET
@@ -118,10 +121,11 @@ public class GiftsService extends GenericService<ServiceProvider> {
 	//			{ @ApiResponse(code = 405, message = "An object with the given id was not found (NOT_FOUND)" },
 	//			{ @ApiResponse(code = 400, message = "Invalid new values given or trying to change immutable fields (BAD_REQUEST)" })
 	public GiftModel update(
+		@Context HttpServletRequest request,
 		@PathParam("id") String id,
 		GiftModel gift
 	) throws NotFoundException, ValidationException {
-		return sp.update(id, gift);
+		return sp.update(request, id, gift);
 	}
 
 	@DELETE

@@ -25,6 +25,8 @@ package org.opentdc.gifts;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.opentdc.service.exception.DuplicateException;
 import org.opentdc.service.exception.InternalServerErrorException;
 import org.opentdc.service.exception.NotFoundException;
@@ -44,6 +46,7 @@ public interface ServiceProvider {
 	);
 
 	public abstract GiftModel create(
+		HttpServletRequest request,		
 		GiftModel gift) 
 	throws DuplicateException, ValidationException;
 
@@ -52,6 +55,7 @@ public interface ServiceProvider {
 	throws NotFoundException;
 
 	public abstract GiftModel update(
+		HttpServletRequest request,		
 		String id, 
 		GiftModel gift) 
 	throws NotFoundException, ValidationException;
